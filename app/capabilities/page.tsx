@@ -1,10 +1,9 @@
 import { PageIntro, FinalCTA } from '@/components/ui';
-import Reveal from '@/components/motion/Reveal';
 import { capabilities } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'Our capabilities',
-  'Mechanical and product engineering, embedded systems, software platforms and practical automation, considered as one system.',
+  'Mechanical engineering, connected systems, software and automation, engineered together.',
   '/capabilities',
 );
 export default function CapabilitiesPage() {
@@ -13,16 +12,16 @@ export default function CapabilitiesPage() {
       <PageIntro
         label="Our capabilities"
         title="The whole system. Considered together."
-        description="Physical design, sensing, communication and software all influence each other. We bring those decisions into one engineering process."
+        description="Physical design, sensing, control and software belong in the same engineering conversation."
       />
       <div className="container detail-list">
         {capabilities.map((item, i) => (
           <section className="capability-detail" id={`capability-${i + 1}`} key={item.title}>
             <span className="detail-number">0{i + 1}</span>
-            <Reveal>
+            <div>
               <h2>{item.title}</h2>
               <p>{item.description}</p>
-            </Reveal>
+            </div>
             <ul className="detail-items">
               {item.items.map((text) => (
                 <li key={text}>{text}</li>
@@ -31,9 +30,8 @@ export default function CapabilitiesPage() {
           </section>
         ))}
         <p className="boundaries">
-          The right expertise for the scope. Specialised electronics, RF design, certification, EMC
-          and functional safety requirements are assessed at discovery and may involve specialist
-          collaborators.
+          Specialist electronics, RF, certification, EMC and functional safety expertise is engaged
+          when the scope requires it.
         </p>
       </div>
       <FinalCTA />

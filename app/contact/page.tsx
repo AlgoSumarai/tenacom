@@ -3,7 +3,7 @@ import { PageIntro } from '@/components/ui';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'Discuss your project',
-  'Tell Tenacom what you need to measure, connect, control or automate. Start a practical engineering conversation.',
+  'Start a practical engineering conversation with Tenacom.',
   '/contact',
 );
 export default function ContactPage() {
@@ -11,27 +11,14 @@ export default function ContactPage() {
   return (
     <>
       <PageIntro
-        label="Let’s build something useful"
-        title="Tell us what you’re trying to solve."
-        description="An operational challenge. An idea for a product. A system that could work better. Start wherever you are — you don’t need a finished specification."
+        label="Discuss your project"
+        title="Tell us what needs to work better."
+        description="Share the challenge and the outcome you need. A finished specification is not required."
       />
       <div className="container contact-layout">
         <aside className="contact-aside">
-          <h2>
-            A conversation,
-            <br />
-            before a specification.
-          </h2>
-          <p>
-            Share the problem and the outcome you have in mind. We can work through the engineering
-            questions together.
-          </p>
-          <ol>
-            <li>Tell us about your challenge.</li>
-            <li>We review the fit and requirements.</li>
-            <li>We discuss a practical next step.</li>
-          </ol>
-          <p>Short on time? Choose “Quick enquiry” for a simpler starting point.</p>
+          <h2>Talk directly with an engineer.</h2>
+          <p>We will review the fit, clarify the requirements and suggest a practical next step.</p>
           {email && (
             <a className="text-link" href={`mailto:${email}`}>
               {email} ↗

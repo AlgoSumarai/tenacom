@@ -1,220 +1,165 @@
+import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowDown, ArrowUpRight, Check } from 'lucide-react';
+import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Button, Eyebrow, FinalCTA } from '@/components/ui';
-import SystemScene from '@/components/sections/SystemScene';
-import SystemFlow from '@/components/sections/SystemFlow';
-import Capabilities from '@/components/sections/Capabilities';
-import Reveal from '@/components/motion/Reveal';
-import MechanicalEngineering from '@/components/sections/MechanicalEngineering';
-import { process, solutions, industries } from '@/data/content';
+import { capabilities, process, solutions } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
+
 export const metadata = pageMetadata(
   'Intelligent systems & product engineering',
-  'Mechanical engineering, connected systems and software. Tenacom makes physical operations measurable, connected and intelligent.',
+  'Tenacom combines mechanical engineering, connected systems and software to make physical operations measurable, connected and intelligent.',
   '/',
 );
+
 export default function Home() {
   return (
     <>
-      <section className="hero container">
-        <div className="hero-copy">
+      <section className="home-hero">
+        <Image
+          src="/images/engineers-pcb.jpg"
+          alt="Engineers inspecting an electronic assembly in a workshop"
+          fill
+          priority
+          sizes="100vw"
+          className="hero-photo"
+        />
+        <div className="hero-shade" />
+        <div className="container hero-content">
           <Eyebrow>Intelligent systems & product engineering</Eyebrow>
           <h1>
-            Engineering
+            Physical systems.
             <br />
-            intelligence into
-            <br />
-            the <span>physical world.</span>
+            Digital intelligence.
           </h1>
-          <p>
-            We connect the physical world to software.
-            <br />
-            Mechanical engineering, connected systems and intelligent software — designed to work as
-            one.
-          </p>
+          <p>We engineer the mechanical, connected and software layers as one working system.</p>
           <div className="hero-actions">
-            <Button>Discuss Your Project</Button>
-            <Link className="quiet-link" href="/capabilities">
-              Explore our capabilities <ArrowUpRight size={16} />
+            <Button>Discuss your project</Button>
+            <Link className="quiet-link light-link" href="/capabilities">
+              See our capabilities <ArrowRight size={16} />
             </Link>
           </div>
-          <div className="hero-footnote">
-            <span className="little-cross">+</span> Engineered in South Africa. Built around your
-            problem.
+        </div>
+        <div className="container hero-meta" aria-label="Tenacom at a glance">
+          <span>South Africa</span>
+          <span>Mechanical + connected + software</span>
+          <span>From problem to working system</span>
+        </div>
+      </section>
+
+      <section className="section statement-section">
+        <div className="container statement-grid">
+          <Eyebrow>What we do</Eyebrow>
+          <div>
+            <h2>One engineering partner across the physical and digital system.</h2>
+            <p>
+              Tenacom helps organisations see, understand and improve what is happening in the real
+              world—from a connected product to a distributed operation.
+            </p>
           </div>
         </div>
-        <SystemScene />
       </section>
-      <div className="hero-strip container">
-        <span>MECHANICAL ENGINEERING</span>
-        <span>CONNECTED SYSTEMS</span>
-        <span>SOFTWARE & INTELLIGENCE</span>
-        <a href="#the-problem" aria-label="Explore the website">
-          <ArrowDown size={17} />
-        </a>
-      </div>
-      <section id="the-problem" className="section problem container">
-        <Reveal>
-          <Eyebrow>The opportunity</Eyebrow>
-          <h2>
-            Your operations generate information.
-            <br />
-            <span>Put it to work.</span>
-          </h2>
-        </Reveal>
-        <Reveal>
-          <p className="lead">
-            Equipment running without visibility. Problems found too late. Another round of manual
-            checks.
-          </p>
-          <p>
-            We engineer the connection between what happens on the ground and what your business can
-            see, understand and control.
-          </p>
-          <div className="outcomes">
-            <span>
-              <Check size={16} /> See what is happening
-            </span>
-            <span>
-              <Check size={16} /> Respond with confidence
-            </span>
-            <span>
-              <Check size={16} /> Automate what comes next
-            </span>
-          </div>
-        </Reveal>
-      </section>
-      <section className="dark-section section">
+
+      <section className="section capability-section">
         <div className="container">
-          <Reveal>
-            <div className="section-heading">
-              <div>
-                <Eyebrow>The connected system</Eyebrow>
-                <h2>
-                  From physical signals.
-                  <br />
-                  To meaningful action.
-                </h2>
-              </div>
-              <p>
-                A sensor is only the beginning.
-                <br />
-                The value is in what the whole system makes possible.
-              </p>
-            </div>
-          </Reveal>
-          <SystemFlow />
-        </div>
-      </section>
-      <Capabilities />
-      <MechanicalEngineering />
-      <section className="section container">
-        <Reveal>
-          <div className="section-heading">
+          <div className="section-heading compact-heading">
             <div>
-              <Eyebrow>Example applications</Eyebrow>
-              <h2>
-                Real problems.
-                <br />
-                Practical possibilities.
-              </h2>
+              <Eyebrow>Capabilities</Eyebrow>
+              <h2>Disciplines that work together.</h2>
             </div>
-            <Link className="text-link" href="/solutions">
-              What we can build <ArrowUpRight size={17} />
+            <Link className="text-link" href="/capabilities">
+              View all capabilities <ArrowUpRight size={16} />
             </Link>
           </div>
-        </Reveal>
-        <div className="solution-grid">
-          {solutions.slice(0, 3).map((item, i) => (
-            <Reveal key={item.title}>
-              <Link className="solution-card" href={`/solutions#solution-${i + 1}`}>
-                <div className={`solution-art art-${i}`} aria-hidden="true">
-                  <span className="art-ring" />
-                  <span className="art-line" />
-                  <span className="art-value">{['42.8 °C', '3.2 bar', '68 % RH'][i]}</span>
-                  <span className="art-label">
-                    {['CONDITION / MONITOR', 'FLOW / CONTROL', 'ENVIRONMENT / SENSE'][i]}
-                  </span>
-                </div>
-                <p className="eyebrow">{item.category}</p>
-                <h3>
-                  {item.title}
-                  <ArrowUpRight size={20} />
-                </h3>
-                <p>{item.description}</p>
+          <div className="capability-list">
+            {capabilities.map((item, index) => (
+              <Link href={`/capabilities#capability-${index + 1}`} key={item.title}>
+                <span>0{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.short}</p>
+                <ArrowUpRight size={18} />
               </Link>
-            </Reveal>
-          ))}
-        </div>
-        <p className="section-note">
-          Illustrative applications, not completed client projects. Every system starts with your
-          requirements.
-        </p>
-      </section>
-      <section id="process" className="section process-section">
-        <div className="container">
-          <Reveal>
-            <div className="section-heading">
-              <div>
-                <Eyebrow>How we work</Eyebrow>
-                <h2>
-                  From problem
-                  <br />
-                  to working system.
-                </h2>
-              </div>
-              <p>
-                You don’t need to arrive with a specification. Understanding what to build is part
-                of the engineering.
-              </p>
-            </div>
-          </Reveal>
-          <div className="process-grid">
-            {process.map(([title, body], i) => (
-              <Reveal key={title}>
-                <span className="process-number">0{i + 1}</span>
-                <h3>{title}</h3>
-                <p>{body}</p>
-              </Reveal>
             ))}
           </div>
         </div>
       </section>
-      <section className="section container industries-preview">
-        <Reveal>
-          <Eyebrow>Where we can create value</Eyebrow>
-          <h2>
-            Built around the challenge.
-            <br />
-            Across physical operations.
-          </h2>
-        </Reveal>
-        <div className="industry-links">
-          {industries.slice(0, 6).map(([name]) => (
-            <Link key={name} href="/industries">
-              {name}
-              <ArrowUpRight size={18} />
+
+      <section className="section people-section">
+        <div className="container people-grid">
+          <figure className="editorial-image portrait-image">
+            <Image
+              src="/images/engineers-prototype.jpg"
+              alt="Engineers discussing a prototype in a workshop"
+              fill
+              sizes="(max-width: 800px) 100vw, 52vw"
+            />
+            <figcaption>Illustrative engineering photography</figcaption>
+          </figure>
+          <div className="people-copy">
+            <Eyebrow>How we think</Eyebrow>
+            <h2>Engineering improves when the disciplines share the same table.</h2>
+            <p>
+              Mechanical fit, sensing, control and software decisions affect one another. We work
+              through those trade-offs early, before they become expensive problems in the field.
+            </p>
+            <Link className="text-link" href="/about">
+              About Tenacom <ArrowUpRight size={16} />
             </Link>
-          ))}
+          </div>
         </div>
       </section>
-      <section className="container why-section">
-        <Eyebrow>Why Tenacom</Eyebrow>
-        <div>
-          <h2>
-            One system.
-            <br />A wider perspective.
-          </h2>
-          <p>
-            Mechanical engineering and software inform each other from the start. You work directly
-            with the engineers connecting the pieces, from the first prototype through integration
-            and testing.
-          </p>
-          <Link href="/about" className="text-link">
-            Get to know Tenacom <ArrowUpRight size={17} />
-          </Link>
+
+      <section className="section applications-section">
+        <div className="container">
+          <div className="section-heading compact-heading">
+            <div>
+              <Eyebrow>Example applications</Eyebrow>
+              <h2>Built around an operational need.</h2>
+            </div>
+            <p>Illustrative possibilities—not claims of completed client work.</p>
+          </div>
+          <div className="application-list">
+            {solutions.slice(0, 4).map((solution, index) => (
+              <Link href={`/solutions#solution-${index + 1}`} key={solution.title}>
+                <span>{solution.category}</span>
+                <h3>{solution.title}</h3>
+                <p>{solution.description}</p>
+                <ArrowUpRight size={18} />
+              </Link>
+            ))}
+          </div>
         </div>
       </section>
+
+      <section className="section process-section" id="process">
+        <div className="container process-layout">
+          <div className="process-intro">
+            <Eyebrow>How we work</Eyebrow>
+            <h2>Start with the problem. Prove the system.</h2>
+            <p>You do not need a finished specification before speaking to us.</p>
+          </div>
+          <figure className="editorial-image process-image">
+            <Image
+              src="/images/engineer-cad.jpg"
+              alt="Engineer using CAD software beside a physical test rig"
+              fill
+              sizes="(max-width: 800px) 100vw, 46vw"
+            />
+            <figcaption>Illustrative engineering photography</figcaption>
+          </figure>
+          <ol className="process-list">
+            {process.map(([title, body], index) => (
+              <li key={title}>
+                <span>0{index + 1}</span>
+                <div>
+                  <h3>{title}</h3>
+                  <p>{body}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <FinalCTA />
     </>
   );

@@ -3,7 +3,7 @@ import { industries } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'Where we can create value',
-  'Potential applications for connected engineering across manufacturing, mining, agriculture, energy, infrastructure and product development.',
+  'Connected engineering for physical assets, infrastructure and product development.',
   '/industries',
 );
 export default function IndustriesPage() {
@@ -12,7 +12,7 @@ export default function IndustriesPage() {
       <PageIntro
         label="Where we can create value"
         title="Different environments. Connected challenges."
-        description="When physical assets and digital systems need to work together, a whole-system perspective matters. These are potential areas of application for Tenacom’s capabilities."
+        description="A whole-system approach for operations that need clearer information and better control."
       />
       <div className="container industry-grid">
         {industries.map(([title, description], i) => (

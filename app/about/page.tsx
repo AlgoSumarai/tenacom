@@ -1,8 +1,9 @@
+import Image from 'next/image';
 import { PageIntro, FinalCTA, Eyebrow } from '@/components/ui';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'About Tenacom',
-  'A South African engineering and technology company bringing mechanical engineering and intelligent software together.',
+  'A South African engineering company bringing physical systems and software together.',
   '/about',
 );
 export default function AboutPage() {
@@ -11,26 +12,24 @@ export default function AboutPage() {
       <PageIntro
         label="About Tenacom"
         title="Engineering across disciplines."
-        description="Tenacom is a South African intelligent systems and product engineering company. We connect physical equipment, products and operations to software that makes them more useful."
+        description="We bring mechanical engineering, connected systems and software into one practical engineering process."
       />
       <section className="container about-statement">
-        <h2>
-          Physical systems.
-          <br />
-          Digital intelligence.
-          <br />
-          Shared purpose.
-        </h2>
+        <figure className="about-photo editorial-image">
+          <Image
+            src="/images/engineers-machine.jpg"
+            alt="Engineers inspecting industrial machinery"
+            fill
+            sizes="(max-width: 800px) 100vw, 50vw"
+          />
+          <figcaption>Illustrative engineering photography</figcaption>
+        </figure>
         <div>
+          <Eyebrow>Direct access to the engineers</Eyebrow>
+          <h2>People who stay close to the work.</h2>
           <p>
-            Modern products and operations need mechanical systems, embedded devices, software and
-            data to work together. We consider them as parts of one system, from the original
-            problem through design, prototyping and integration.
-          </p>
-          <p style={{ marginTop: 22 }}>
-            We are building a focused engineering company around complementary software and
-            mechanical capabilities. The aim is practical: make the physical world measurable,
-            connected and controllable.
+            Tenacom connects physical design, embedded systems and software so the complete system
+            can be understood, built and tested together.
           </p>
         </div>
       </section>
@@ -38,10 +37,7 @@ export default function AboutPage() {
         <div className="about-pillar">
           <Eyebrow>Software & intelligent systems</Eyebrow>
           <h2>Make information useful.</h2>
-          <p>
-            From embedded behaviour to the software teams use every day, we connect signals to
-            decisions and actions.
-          </p>
+          <p>Connect equipment data to clear decisions and useful action.</p>
           <ul className="detail-items">
             <li>Software engineering & cloud platforms</li>
             <li>Embedded development & connected systems</li>
@@ -51,29 +47,12 @@ export default function AboutPage() {
         <div className="about-pillar">
           <Eyebrow>Mechanical & physical systems</Eyebrow>
           <h2>Make technology work in reality.</h2>
-          <p>
-            Physical design and validation support the complete system, including how it is built,
-            fitted, protected and tested.
-          </p>
+          <p>Design, integrate and validate the parts that must work in the real world.</p>
           <ul className="detail-items">
             <li>Mechanical design, CAD & packaging</li>
             <li>Prototyping & electromechanical integration</li>
             <li>Testing & manufacturing support</li>
           </ul>
-        </div>
-      </section>
-      <section className="dark-section section">
-        <div className="container">
-          <Eyebrow>Direct access to the engineers</Eyebrow>
-          <h2>
-            You bring the problem.
-            <br />
-            We work through the system.
-          </h2>
-          <p className="lead" style={{ maxWidth: 710, marginTop: 28 }}>
-            You don’t need to choose the sensor, enclosure, controller or software platform before
-            speaking to us. Understanding those requirements is part of the work.
-          </p>
         </div>
       </section>
       <FinalCTA />

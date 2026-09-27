@@ -1,5 +1,13 @@
 import { test, expect } from '@playwright/test';
-test('intermediate viewport layouts and engineering media remain usable', async ({
+
+const homepageSections = [
+  '.home-hero',
+  '.people-section',
+  '.capability-list',
+  '.process-section',
+] as const;
+
+test('static photo-led homepage remains usable across intermediate viewports', async ({
   page,
 }, testInfo) => {
   test.skip(testInfo.project.name === 'mobile', 'The matrix is independent of device emulation.');
@@ -11,15 +19,25 @@ test('intermediate viewport layouts and engineering media remain usable', async 
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
+    for (const selector of homepageSections) await expect(page.locator(selector)).toBeVisible();
+    expect(
+      await page
+        .locator('.home-hero img')
+        .first()
+        .evaluate(
+          (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+        ),
+    ).toBe(true);
     await page.screenshot({ path: testInfo.outputPath(`home-${width}.png`), fullPage: true });
   }
-  await page.locator('.mechanical-grid').scrollIntoViewIfNeeded();
-  await page.getByRole('button', { name: 'Integrate', exact: true }).click();
-  await expect(page.locator('.mechanical-stages')).toContainText('one working prototype');
-  await page
-    .locator('.mechanical-grid')
-    .screenshot({ path: testInfo.outputPath('mechanical.png') });
-  await page
-    .locator('.capability-grid')
-    .screenshot({ path: testInfo.outputPath('capabilities.png') });
+
+  for (const [selector, filename] of [
+    ['.people-section', 'people.png'],
+    ['.capability-list', 'capabilities.png'],
+    ['.process-section', 'process.png'],
+  ] as const) {
+    const section = page.locator(selector);
+    await section.scrollIntoViewIfNeeded();
+    await section.screenshot({ path: testInfo.outputPath(filename) });
+  }
 });

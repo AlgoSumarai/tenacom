@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { navigation } from '@/data/content';
+
 export default function Footer() {
   return (
     <footer>
@@ -9,7 +10,7 @@ export default function Footer() {
             tenacom
           </Link>
           <p>Physical systems. Digital intelligence.</p>
-          <span className="footer-location">Based in South Africa. Built for the real world.</span>
+          <span className="footer-location">Engineering from South Africa.</span>
         </div>
         <nav aria-label="Footer navigation">
           {[...navigation, ['Contact', '/contact']].map(([label, href]) => (

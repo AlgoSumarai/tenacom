@@ -9,56 +9,44 @@ export const capabilities = [
   {
     title: 'Mechanical & product engineering',
     short: 'Built for the physical world.',
-    description:
-      'The physical architecture that makes technology reliable. From a first CAD model to a tested, integrated assembly.',
+    description: 'Design and validate the physical architecture around the technology.',
     items: [
       'Mechanical design & CAD',
-      'Enclosures, mounting & fixtures',
       'Rapid prototyping & physical validation',
-      'Electromechanical integration',
-      'Manufacturing support & documentation',
+      'Electromechanical integration & manufacturing support',
     ],
     icon: 'box',
   },
   {
     title: 'Embedded & connected systems',
     short: 'Give your equipment a voice.',
-    description:
-      'Sensing, embedded software and communication that connect equipment to the information you need.',
+    description: 'Connect sensors, controllers and equipment to the information you need.',
     items: [
       'Sensor & controller integration',
-      'Embedded software & control logic',
-      'Device-to-cloud communication',
-      'Gateways & legacy equipment connectivity',
-      'Device configuration & field integration',
+      'Embedded software & control',
+      'Device, gateway & legacy connectivity',
     ],
     icon: 'radio',
   },
   {
     title: 'Software platforms',
     short: 'A clear view of your operation.',
-    description:
-      'Purpose-built software that helps people understand, manage and control connected operations.',
+    description: 'Purpose-built software for understanding and managing connected operations.',
     items: [
-      'Operational interfaces & dashboards',
-      'Backend systems, APIs & databases',
-      'Cloud infrastructure & device management',
-      'Real-time monitoring & reporting',
-      'Integration with business systems',
+      'Operational applications & dashboards',
+      'Backend systems, APIs & data',
+      'Cloud, device & business-system integration',
     ],
     icon: 'layers',
   },
   {
     title: 'Automation & intelligence',
     short: 'From information to action.',
-    description:
-      'Turn operational data into useful alerts, better decisions and controlled physical responses.',
+    description: 'Turn operational data into alerts, decisions and controlled responses.',
     items: [
       'Rules, alerts & automated workflows',
       'Remote commands & control',
-      'Operational analytics',
-      'Anomaly detection',
-      'Machine learning where it adds practical value',
+      'Operational analytics & anomaly detection',
     ],
     icon: 'activity',
   },
@@ -68,93 +56,54 @@ export const solutions = [
     title: 'Machine condition monitoring',
     category: 'Equipment visibility',
     description:
-      'Track vibration, temperature and running state to spot changes before they become surprises.',
+      'Track vibration, temperature and runtime so maintenance teams can investigate changes earlier.',
     signals: 'Vibration · Temperature · Runtime',
-    outcome: 'Give maintenance teams context for investigation and planning.',
   },
   {
     title: 'Smart pump monitoring',
     category: 'Connected infrastructure',
-    description:
-      'Bring flow, pressure and operating status together in one view, with alerts and appropriate remote control.',
+    description: 'Bring flow, pressure and motor state into one clear view for faster response.',
     signals: 'Flow · Pressure · Motor state',
-    outcome: 'Understand pump behaviour without relying only on manual inspection.',
   },
   {
     title: 'Environmental monitoring',
     category: 'Remote sensing',
-    description:
-      'Measure conditions across buildings, field locations and sensitive storage environments.',
+    description: 'Monitor changing conditions across buildings, field sites and sensitive storage.',
     signals: 'Temperature · Humidity · Water quality',
-    outcome: 'Make changing conditions visible to the people who can respond.',
-  },
-  {
-    title: 'Tank & resource monitoring',
-    category: 'Operational insight',
-    description:
-      'Track levels, consumption and thresholds across distributed tanks and facilities.',
-    signals: 'Level · Consumption · Thresholds',
-    outcome: 'Plan replenishment and investigate unexpected changes.',
   },
   {
     title: 'Connected products',
     category: 'Product development',
-    description:
-      'Engineer the enclosure, embedded behaviour and software experience as one coherent product.',
+    description: 'Develop the enclosure, embedded behaviour and software as one testable product.',
     signals: 'Physical design · Connectivity · Software',
-    outcome: 'Move from an idea to an integrated prototype you can test.',
   },
   {
     title: 'Custom automation',
     category: 'Intelligent control',
-    description:
-      'Connect measured conditions to defined rules, software workflows and physical responses.',
+    description: 'Link measured conditions to rules, workflows and physical responses.',
     signals: 'Inputs · Rules · Actuation',
-    outcome: 'Reduce repetitive intervention with control suited to the operating environment.',
-  },
-  {
-    title: 'Cold chain monitoring',
-    category: 'Condition tracking',
-    description:
-      'Capture storage and transport conditions, with clear records and threshold alerts.',
-    signals: 'Temperature · Humidity · Time',
-    outcome: 'Identify excursions and support informed handling decisions.',
-  },
-  {
-    title: 'Energy monitoring',
-    category: 'Resource visibility',
-    description:
-      'Collect consumption data from equipment and facilities to understand when and where energy is used.',
-    signals: 'Power · Energy · Operating state',
-    outcome: 'Make consumption patterns available for operational decisions.',
   },
   {
     title: 'Remote asset monitoring',
     category: 'Distributed operations',
     description:
-      'Bring the condition and status of dispersed equipment into a shared operational interface.',
+      'See distributed equipment condition and prioritise site visits with current data.',
     signals: 'Status · Location context · Alerts',
-    outcome: 'Prioritise site visits using current information.',
   },
 ] as const;
 export const industries = [
-  ['Manufacturing', 'Equipment visibility, process data and connected production systems.'],
-  ['Mining', 'Remote equipment monitoring and operational data in demanding environments.'],
-  ['Agriculture', 'Water, environmental conditions and distributed field infrastructure.'],
-  ['Energy', 'Asset status, consumption data and maintenance visibility.'],
-  ['Logistics & cold storage', 'Storage conditions, handling processes and connected assets.'],
-  ['Water & infrastructure', 'Pumps, tanks, flow and distributed equipment.'],
-  ['Commercial property', 'Building systems, resource monitoring and facilities automation.'],
-  [
-    'Engineering & technology',
-    'Prototypes, connected products and integrated physical-digital systems.',
-  ],
+  ['Manufacturing', 'Connected equipment, production data and process visibility.'],
+  ['Mining', 'Remote asset visibility for demanding environments.'],
+  ['Agriculture', 'Water, environmental and field infrastructure monitoring.'],
+  ['Energy', 'Asset condition, consumption and maintenance data.'],
+  ['Logistics & cold storage', 'Condition tracking across storage and handling.'],
+  ['Water & infrastructure', 'Pumps, tanks, flow and distributed assets.'],
+  ['Commercial property', 'Building systems and resource monitoring.'],
+  ['Engineering & technology', 'Connected products and integrated prototypes.'],
 ] as const;
 export const process = [
-  ['Understand', 'Start with the operational problem, the people and the environment.'],
-  ['Engineer', 'Define the physical, sensing, control and software requirements together.'],
-  ['Prototype', 'Build the smallest useful system that can prove the concept.'],
-  ['Test', 'Validate fit, behaviour and performance under real operating conditions.'],
-  ['Deploy', 'Integrate the system into the operation with clear documentation.'],
-  ['Improve', 'Use field feedback and measured data to refine the system.'],
+  ['Understand', 'Define the problem, the people and the operating environment.'],
+  ['Engineer', 'Design the physical, connected and software system together.'],
+  ['Prove', 'Build and test the smallest useful working system.'],
+  ['Deploy', 'Integrate it with clear documentation and a path to improve.'],
 ] as const;

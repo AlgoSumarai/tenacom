@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+
+const homepageSections = [
+  '.home-hero',
+  '.people-section',
+  '.capability-list',
+  '.process-section',
+] as const;
+
 test('every public page has metadata, working assets and no horizontal overflow', async ({
   page,
 }) => {
@@ -23,32 +31,57 @@ test('every public page has metadata, working assets and no horizontal overflow'
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );
-    expect(
-      await page
-        .locator('img')
-        .evaluateAll((images) =>
-          images.every(
+    const images = page.locator('img:visible');
+    for (const image of await images.all()) await image.scrollIntoViewIfNeeded();
+    await expect
+      .poll(() =>
+        images.evaluateAll((items) =>
+          items.every(
             (image) =>
               image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
           ),
         ),
-    ).toBe(true);
+      )
+      .toBe(true);
     expect(await page.locator('body').innerText()).not.toMatch(/lorem ipsum|Â©|Â®/i);
   }
   expect(failures).toEqual([]);
 });
-test('pump commands and system keyboard tabs change the visible state', async ({ page }) => {
+
+test('homepage is concise, photo-led and complete', async ({ page, isMobile }) => {
   await page.goto('/');
-  await page.getByRole('button', { name: 'Stop motor' }).click();
-  await expect(page.getByText('Stopped', { exact: true })).toBeVisible();
-  await page.getByRole('button', { name: 'Start motor' }).click();
-  await expect(page.getByText('Running', { exact: true })).toBeVisible();
-  const sense = page.getByRole('tab', { name: /Sense/ });
-  await sense.click();
-  await sense.press('ArrowRight');
-  await expect(page.getByRole('tab', { name: /Connect/ })).toHaveAttribute('aria-selected', 'true');
-  await expect(page.getByRole('tabpanel')).toContainText('Move information reliably.');
+
+  for (const selector of homepageSections) await expect(page.locator(selector)).toBeVisible();
+
+  const heroPhoto = page.locator('.home-hero img').first();
+  await expect(heroPhoto).toBeVisible();
+  expect(
+    await heroPhoto.evaluate(
+      (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+    ),
+  ).toBe(true);
+
+  const peoplePhotos = page.locator('.people-section img');
+  expect(await peoplePhotos.count()).toBeGreaterThan(0);
+  expect(
+    await peoplePhotos.evaluateAll((images) =>
+      images.every(
+        (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+      ),
+    ),
+  ).toBe(true);
+
+  const pageMeasure = await page.locator('main').evaluate((main) => ({
+    height: main.scrollHeight,
+    viewportHeight: innerHeight,
+    words: (main.textContent?.trim().match(/\S+/g) ?? []).length,
+  }));
+  expect(pageMeasure.words).toBeGreaterThan(150);
+  expect(pageMeasure.words).toBeLessThan(850);
+  expect(pageMeasure.height).toBeGreaterThan(pageMeasure.viewportHeight * 3);
+  expect(pageMeasure.height).toBeLessThan(pageMeasure.viewportHeight * (isMobile ? 20 : 12));
 });
+
 test('navigation, escape and focus work at the current breakpoint', async ({ page, isMobile }) => {
   await page.goto('/');
   await page.keyboard.press('Tab');
@@ -105,20 +138,27 @@ test('form validates and only resets after a successful delivery response', asyn
   await expect(page.locator('.form-status')).toContainText('has been sent');
   await expect(page.locator('#name')).toHaveValue('');
 });
-test('reduced motion keeps all content visible and technical animation stopped', async ({
-  page,
-}) => {
+
+test('reduced motion keeps editorial photos and sections visible and static', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
-  expect(await page.locator('.rotor').evaluate((el) => getComputedStyle(el).animationName)).toBe(
-    'none',
-  );
-  expect(
-    await page
-      .locator('.reveal')
-      .evaluateAll((els) => els.every((el) => getComputedStyle(el).opacity === '1')),
-  ).toBe(true);
+
+  for (const selector of [...homepageSections, '.home-hero img', '.people-section img']) {
+    const elements = page.locator(selector);
+    expect(await elements.count()).toBeGreaterThan(0);
+    await expect(elements.first()).toBeVisible();
+    expect(
+      await elements.evaluateAll((nodes) =>
+        nodes.every((node) =>
+          getComputedStyle(node)
+            .animationName.split(',')
+            .every((name) => name.trim() === 'none'),
+        ),
+      ),
+    ).toBe(true);
+  }
 });
+
 test('branded 404 and discovery endpoints respond correctly', async ({ page, request }) => {
   expect((await page.goto('/missing-system'))?.status()).toBe(404);
   await expect(page.getByRole('heading', { name: 'Signal lost.' })).toBeVisible();

@@ -17,11 +17,11 @@ const favicon = getImageProps({ src: '/brand/tenacom.png', alt: 'Tenacom', width
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: 'Tenacom | Engineering intelligence into the physical world',
+    default: 'Tenacom | Physical systems. Digital intelligence.',
     template: '%s | Tenacom',
   },
   description:
-    'Tenacom combines mechanical engineering, connected systems and software to help businesses monitor, control and automate physical operations.',
+    'Tenacom combines mechanical engineering, connected systems and software as one working system.',
   openGraph: {
     type: 'website',
     siteName: 'Tenacom',

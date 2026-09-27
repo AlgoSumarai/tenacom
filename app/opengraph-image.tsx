@@ -1,5 +1,5 @@
 import { ImageResponse } from 'next/og';
-export const alt = 'Tenacom — Engineering intelligence into the physical world.';
+export const alt = 'Tenacom — Physical systems. Digital intelligence.';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 export default function Image() {
@@ -26,7 +26,7 @@ export default function Image() {
           maxWidth: 950,
         }}
       >
-        Engineering intelligence into the physical world.
+        Physical systems. Digital intelligence.
       </div>
       <div style={{ display: 'flex', fontSize: 20, color: '#75c8f8' }}>
         Physical systems. Digital intelligence. / South Africa

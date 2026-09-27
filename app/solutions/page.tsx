@@ -3,7 +3,7 @@ import { solutions } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'What we can build',
-  'Explore potential systems for remote monitoring, connected products, environmental sensing and operational automation.',
+  'Potential systems for monitoring, connected products and practical automation.',
   '/solutions',
 );
 export default function SolutionsPage() {
@@ -12,7 +12,7 @@ export default function SolutionsPage() {
       <PageIntro
         label="Example applications"
         title="Start with what needs to work better."
-        description="These are systems we can develop, not a list of past deployments. Each application is shaped around your equipment, environment and operational goals."
+        description="Illustrative systems shaped around your equipment, environment and operating goals."
       />
       <div className="container solutions-list">
         {solutions.map((item, i) => (
@@ -21,9 +21,8 @@ export default function SolutionsPage() {
               {item.category} / 0{i + 1}
             </Eyebrow>
             <h2>{item.title}</h2>
-            <p>{item.description}</p>
+            <p className="solution-outcome">{item.description}</p>
             <p className="signal-label">{item.signals}</p>
-            <p className="solution-outcome">{item.outcome}</p>
           </section>
         ))}
       </div>

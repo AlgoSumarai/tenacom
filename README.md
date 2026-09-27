@@ -6,10 +6,10 @@ The site includes a homepage, capabilities, example solutions, potential industr
 
 ## Stack
 
-- Next.js 16 App Router, React 19 and strict TypeScript. Pages remain server components; client components own only navigation, forms and interactive visualisations.
-- Plain CSS with central brand tokens and responsive layouts. CSS and IntersectionObserver provide motion without overlapping animation libraries.
+- Next.js 16 App Router, React 19 and strict TypeScript. Pages remain server components; client components own only navigation and form behaviour.
+- Plain CSS with central brand tokens and responsive editorial layouts. The interface uses restrained state transitions without an animation library.
 - Manrope and IBM Plex Mono via `next/font`; font files are served locally after the build.
-- Original SVG engineering illustrations and Lucide interface icons. The supplied logo is preserved in `public/brand/tenacom.png` and delivered through `next/image`.
+- Licensed, documentary-style engineering photography and Lucide interface icons. Image sources and representation notes are documented in `public/images/README.md`. The supplied logo is preserved in `public/brand/tenacom.png` and delivered through `next/image`.
 - A server-only Resend HTTP adapter for enquiry delivery. No database or public credentials are needed.
 - ESLint, Prettier, Node tests through tsx, and Playwright browser regression tests.
 
@@ -78,8 +78,7 @@ app/
   opengraph-image.tsx       Social sharing image
 components/
   layout/                   Header, mobile navigation and footer
-  motion/                   Shared reveal behaviours
-  sections/                 Engineering visuals and feature sections
+  sections/                 Photo-led editorial and feature sections
   ContactForm.tsx            Form interaction, feedback and focus
   ui.tsx                    Buttons, headings and closing CTA
 data/content.ts             Capabilities, solutions, industries and process content
@@ -94,15 +93,13 @@ tests/                      Validation, API and browser regression coverage
 
 ## Design and interaction notes
 
-`SystemScene.tsx` owns the pump concept illustration. A simulated motor command changes the illustrated running state and displayed telemetry. Values are illustrative, not live measurements or engineering specifications. The visual connects a physical pump, temperature sensor, controller and software interface. It does not control real equipment.
+The homepage uses a dark editorial system organised around `.home-hero`, `.people-section`, `.capability-list` and `.process-section`. A single static hero photograph establishes the physical engineering context, while supporting photographs show people working with CAD, electronics, prototypes and industrial equipment. There are no autoplay carousels, looping media or animated technical scenes.
 
-`SystemFlow.tsx` explains Sense → Connect → Understand → Control → Improve. Scrolling activates stages; selecting a stage switches to deliberate manual control. Keyboard arrows, Home and End operate the accessible tab sequence. On small phones the flow becomes vertical.
+The palette begins with ink and deep navy, then uses warm off-white, steel grey and the logo blues as controlled accents. Large type, thin rules, asymmetric image crops and generous spacing provide hierarchy. Capability content is presented as a disciplined editorial list rather than a repeated card grid, and the process remains a static numbered sequence that is easy to scan.
 
-`MechanicalEngineering.tsx` presents an original enclosure assembly study. `MechanicalStages.tsx` explains the CAD-to-installation sequence. These are illustrative concept drawings, not proprietary founder project images or claims of manufactured products.
+Photography is illustrative stock imagery licensed from Pexels. The people shown are not represented as Tenacom staff, and the scenes do not imply Tenacom client work, facilities or endorsements. Keep this distinction clear when replacing or adding images, and update `public/images/README.md` with the source and photographer.
 
-`Reveal.tsx` progressively adds viewport entrances after hydration. Content stays visible without JavaScript and for reduced-motion users. `ImageReveal.tsx` adds a directional mask and controlled scale to engineering media. CSS disables nonessential transforms and all looping animations under `prefers-reduced-motion`.
-
-Brand colours, gradient, width, easing and type tokens live at the top of `app/globals.css`. Breakpoints at 1100, 800 and 480 pixels reorganise the layouts. The logo uses the original square raster with a presentation window around its unused whitespace; its artwork and proportions are unchanged.
+Brand colours, width, spacing and type tokens live at the top of `app/globals.css`. Breakpoints at 1100, 800 and 480 pixels reorganise the layouts without changing the reading order. Reduced-motion users receive the same visible content with CSS animation disabled on the principal photographs and sections. The logo uses the original square raster with a presentation window around its unused whitespace; its artwork and proportions are unchanged.
 
 ## Maintenance
 
@@ -116,4 +113,4 @@ No real contact address, domain or delivery credentials were supplied. Before pu
 
 The unit/API suite covers required fields, input types, enum tampering, length bounds, consent, rate expiry, origin/content-type rejection, malformed and oversized payloads, honeypot rejection, unconfigured delivery, provider success and provider/network failure.
 
-The browser suite covers all public routes, metadata, assets, horizontal overflow, motor controls, keyboard tabs, navigation, mobile menu escape/focus, form errors, retained data on failure, success/loading feedback, reduced motion and the 404/discovery endpoints. Review the actual rendering after changing layouts; passing a build alone is not a visual quality check.
+The browser suite covers all public routes, metadata, assets, horizontal overflow, homepage section structure, photography loading, copy and page-height limits, responsive screenshots, navigation, mobile menu escape/focus, form errors, retained data on failure, success/loading feedback, reduced motion and the 404/discovery endpoints. Review the actual rendering after changing layouts; passing a build alone is not a visual quality check.

@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
-import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { ArrowRight, Menu, X } from 'lucide-react';
 import { navigation } from '@/data/content';
 export default function Header() {
   const [open, setOpen] = useState(false);
@@ -24,7 +24,10 @@ export default function Header() {
     <header className="site-header">
       <div className="container header-inner">
         <Link href="/" aria-label="Tenacom home" className="brand" onClick={() => setOpen(false)}>
-          <Image src="/brand/tenacom.png" alt="Tenacom" width={155} height={155} priority />
+          <span className="brand-mark" aria-hidden="true">
+            <Image src="/brand/tenacomtrans.png" alt="" width={92} height={92} priority />
+          </span>
+          <span>tenacom</span>
         </Link>
         <nav aria-label="Main navigation" className="desktop-nav">
           {navigation.map(([label, href]) => (
@@ -34,7 +37,7 @@ export default function Header() {
           ))}
         </nav>
         <Link href="/contact" className="header-cta">
-          Start a Project <ArrowUpRight size={15} />
+          Discuss a project <ArrowRight size={15} />
         </Link>
         <button
           ref={toggle}
@@ -52,7 +55,7 @@ export default function Header() {
           {[...navigation, ['Contact', '/contact']].map(([label, href]) => (
             <Link key={href} href={href} onClick={() => setOpen(false)}>
               {label}
-              <ArrowUpRight size={17} />
+              <ArrowRight size={17} />
             </Link>
           ))}
         </nav>

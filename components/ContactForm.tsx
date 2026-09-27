@@ -55,7 +55,7 @@ export default function ContactForm() {
   const [errors, setErrors] = useState<FieldErrors>({});
   const [pending, setPending] = useState(false);
   const [status, setStatus] = useState<{ success: boolean; message: string } | null>(null);
-  const [brief, setBrief] = useState(true);
+  const [brief, setBrief] = useState(false);
   const form = useRef<HTMLFormElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
   function showErrors(next: FieldErrors) {
