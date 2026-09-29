@@ -22,16 +22,20 @@ export default function Privacy() {
         </p>
         <h2>How the information is used</h2>
         <p>
-          When delivery is configured, submitted information is sent to Tenacom’s designated enquiry
-          inbox through its email delivery provider. It is used to assess and respond to your
-          enquiry. This website does not subscribe you to marketing messages.
+          For general contact enquiries, when delivery is configured, information is sent to
+          Tenacom’s designated enquiry inbox through its email delivery provider. It is used to
+          assess and respond to your enquiry. This website does not subscribe you to marketing
+          messages.
         </p>
         <h2>Storage and service providers</h2>
         <p>
-          The website does not keep a separate enquiry database. Delivered enquiries are held in the
-          designated mailbox and processed by the configured email service. The hosting service may
-          also retain operational request logs. Anti-spam controls use a short-lived, in-memory
-          request identifier.
+          Manufacturing enquiries, including optional uploaded designs and reference files, are
+          stored privately with their service, project details and enquiry reference so Tenacom can
+          assess the work and prepare a quotation. Files are not published on the website. General
+          contact enquiries are delivered by email. Delivered enquiries are held in the designated
+          mailbox and processed by the configured email service. The hosting service may also retain
+          operational request logs. Anti-spam controls use a short-lived, in-memory request
+          identifier.
         </p>
         <h2>Cookies and analytics</h2>
         <p>

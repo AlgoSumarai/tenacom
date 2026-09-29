@@ -5,7 +5,7 @@ import type { FormEvent } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { contactFields, projectFields, validateEnquiry } from '@/lib/enquiry';
 import type { FieldDefinition, FieldErrors } from '@/lib/enquiry';
-function Field({ field, error }: { field: FieldDefinition; error?: string }) {
+export function Field({ field, error }: { field: FieldDefinition; error?: string }) {
   const props = {
     id: field.name,
     name: field.name,

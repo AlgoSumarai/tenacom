@@ -2,7 +2,7 @@
 
 Tenacom is a South African intelligent systems and product engineering company. This website explains how mechanical engineering, embedded and connected systems, software and automation can work together to improve physical operations.
 
-The site includes a homepage, capabilities, example solutions, potential industries, about, project enquiry, privacy and branded 404 pages. Application examples are explicitly conceptual; no clients, deployments, performance figures or credentials have been invented.
+The site includes a homepage, manufacturing hub and service enquiries, capabilities, example solutions, potential industries, about, project enquiry, privacy and branded 404 pages. Application examples are explicitly conceptual; no clients, deployments, performance figures or credentials have been invented.
 
 ## Stack
 
@@ -57,7 +57,7 @@ Configure the three delivery variables together. Without them, valid submissions
 
 The form offers a full project brief and a quick enquiry. Both require name, email, a meaningful problem description and permission to respond. Optional context includes company, phone, equipment, desired outcome, industry, environment, existing systems, scale, stage, timeline, budget and additional information.
 
-The API enforces shared validation, allowed select values, field lengths, a 24 KB streamed body limit, same-origin browser requests, a honeypot and a bounded instance-local rate guard. Untrusted proxy headers are ignored by default, using a shared limit instead. For production, configure a trustworthy proxy and an edge/WAF or shared-store limit; the in-memory guard is not a distributed spam prevention service. The application does not store enquiry bodies or log personal enquiry content.
+The general contact API enforces shared validation, allowed select values, field lengths, a 24 KB streamed body limit, same-origin browser requests, a honeypot and a bounded instance-local rate guard. Untrusted proxy headers are ignored by default, using a shared limit instead. For production, configure a trustworthy proxy and an edge/WAF or shared-store limit; the in-memory guard is not a distributed spam prevention service. The general contact endpoint does not store enquiry bodies or log personal enquiry content. Manufacturing uses the private persistence adapter described below.
 
 ## Project structure
 
@@ -71,8 +71,11 @@ app/
   solutions/                Explicitly labelled application examples
   industries/               Potential areas of value
   contact/                  Project discovery page
+  manufacturing/            Manufacturing hub
+    [slug]/page.tsx          Statically generated service pages
   privacy/                  Enquiry handling notice
   api/contact/route.ts      Validated enquiry endpoint
+  api/manufacturing-enquiries/route.ts  Multipart project and upload endpoint
   not-found.tsx             Branded 404
   sitemap.ts, robots.ts     Discovery metadata
   opengraph-image.tsx       Social sharing image
@@ -80,16 +83,41 @@ components/
   layout/                   Header, mobile navigation and footer
   sections/                 Photo-led editorial and feature sections
   ContactForm.tsx            Form interaction, feedback and focus
+  ManufacturingEnquiryForm.tsx Service-aware form and optional uploads
+  ManufacturingServices.tsx  Shared photo-led service list
   ui.tsx                    Buttons, headings and closing CTA
 data/content.ts             Capabilities, solutions, industries and process content
+data/manufacturing.ts       Manufacturing service catalogue, options and applications
 lib/
   enquiry.ts                Shared form definitions and validation
   mail.ts                   Server email delivery adapter
   rate-limit.ts             Bounded local request guard
+  manufacturing-enquiry.ts  Shared field definitions and file/input validation
+  manufacturing-storage.ts Private atomic enquiry and file persistence adapter
   site.ts                   Canonical origin and page metadata helper
 public/brand/               Original user-supplied logo
 tests/                      Validation, API and browser regression coverage
 ```
+
+## Manufacturing and project enquiries
+
+The manufacturing hierarchy is `/manufacturing`, `/manufacturing/3d-printing`, `/manufacturing/laser-cutting` and `/manufacturing/sheet-metal-design`. There is no new `/services` route. Manufacturing is linked in desktop/mobile navigation and the footer. The sitemap and individual canonical metadata include all service pages. Unknown service slugs return 404.
+
+`data/manufacturing.ts` owns the reusable service catalogue: slug, name, introduction, image/alt text, service options, applications and capability boundaries. `app/manufacturing/[slug]/page.tsx` generates each page with offerings, applications, process, enquiry and related services. To add a service, add a catalogue entry with a unique slug and appropriate options; routes, related links and sitemap entries follow automatically. Adapt `manufacturingFields()` only if the service needs extra fields. Set `designOnly` for design services so the workflow and copy do not imply physical production. Existing illustrative photographs are reused under the licences in `public/images/README.md`.
+
+`ManufacturingEnquiryForm` sets the service from its page; customers select only the service option or design project type. Name, email, option, a meaningful description and permission to respond are required. Quantity, dimensions, material, thickness, completion date and files are optional so an enquiry can start with an idea. Shared client/server validation checks field lengths, email, dates and allowed options. Inline errors focus the first invalid control. Loading and success lock the form, failures retain input and files, and a successful enquiry can be followed by a new one.
+
+`POST /api/manufacturing-enquiries` accepts multipart form data. Accepted extensions: STL, STEP, STP, DXF, DWG, SVG, PDF, PNG, JPG and JPEG (case-insensitive). Limits are four files, 5 MB each, 12 MB combined, plus 64 KB for multipart overhead and text. The server bounds the incoming stream before parsing. Zero-byte files, unsupported extensions and over-limit uploads are rejected. File extensions are an intake filter, not malware detection: uploads are private and are never rendered, executed or served by the website. Treat files as untrusted when reviewing them and use appropriate scanning in the internal workflow.
+
+### Configure private storage before accepting manufacturing enquiries
+
+Set `MANUFACTURING_ENQUIRY_DIR` to an **absolute path on a persistent private volume outside `public/`**, for example `C:/TenacomData/manufacturing-enquiries` or `/var/lib/tenacom/manufacturing-enquiries`. Give only the application and authorised staff access (configure Windows ACLs or host permissions), and back up the volume. The app intentionally returns 503 without this configuration; it never claims a missing enquiry was received. Temporary serverless filesystems are unsuitable. On those hosts, replace `lib/manufacturing-storage.ts` with a private object-store/database adapter. Ensure the reverse proxy accepts at least 13 MB request bodies, and apply edge rate limits alongside the existing bounded, instance-local guard.
+
+Each accepted enquiry has a UUID directory containing `enquiry.json` and numbered original-format attachments. The JSON records version, timestamp, canonical service name/slug, selected option, validated project/contact details, consent and file references with original filenames and sizes. Numbered filenames prevent submitted names from becoming paths. A staging directory is atomically renamed after all files and metadata are written; interrupted work cannot appear as a completed enquiry. A stable browser-generated UUID and content digest make identical retries return the existing reference; changed content under an already-recorded UUID returns 409. A process killed during writing may leave a `.pending-*` directory; operators can remove stale staging directories after confirming no request is using them.
+
+Manufacturing enquiries are **recorded privately, not emailed automatically**. Staff must monitor the configured directory and review `enquiry.json` and its referenced files; connect this adapter to an internal dashboard, CRM, quotation system or email notification as needed. The existing `/api/contact` email flow is unchanged. A success response means the complete manufacturing record and attachments were saved, not that pricing, materials or production were approved. Configure retention and deletion for both record directories and backups to match the published privacy notice and operating policy. No public file-download endpoint is provided.
+
+The API also checks browser origin, honeypot and request rate, returning 422 for field/file errors, 413 for oversized bodies, 429 for throttling and 502 for storage failure. It does not log enquiry contents. Test coverage includes all three service configurations, optional technical details, tampered options, upload limits, private persistence, simultaneous retries and failures; browser tests cover mobile/desktop navigation, canonical routes, file removal and retained input.
 
 ## Design and interaction notes
 

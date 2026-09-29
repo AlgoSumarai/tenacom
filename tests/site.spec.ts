@@ -55,21 +55,27 @@ test('homepage is concise, photo-led and complete', async ({ page, isMobile }) =
 
   const heroPhoto = page.locator('.home-hero img').first();
   await expect(heroPhoto).toBeVisible();
-  expect(
-    await heroPhoto.evaluate(
-      (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
-    ),
-  ).toBe(true);
+  await expect
+    .poll(() =>
+      heroPhoto.evaluate(
+        (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+      ),
+    )
+    .toBe(true);
 
   const peoplePhotos = page.locator('.people-section img');
   expect(await peoplePhotos.count()).toBeGreaterThan(0);
-  expect(
-    await peoplePhotos.evaluateAll((images) =>
-      images.every(
-        (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+  // Off-screen photographs are lazy loaded; visibility alone does not request their bytes.
+  for (const photo of await peoplePhotos.all()) await photo.scrollIntoViewIfNeeded();
+  await expect
+    .poll(() =>
+      peoplePhotos.evaluateAll((images) =>
+        images.every(
+          (image) => image instanceof HTMLImageElement && image.complete && image.naturalWidth > 0,
+        ),
       ),
-    ),
-  ).toBe(true);
+    )
+    .toBe(true);
 
   const pageMeasure = await page.locator('main').evaluate((main) => ({
     height: main.scrollHeight,

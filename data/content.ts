@@ -1,4 +1,5 @@
 export const navigation = [
+  ['Manufacturing', '/manufacturing'],
   ['Capabilities', '/capabilities'],
   ['Solutions', '/solutions'],
   ['Industries', '/industries'],

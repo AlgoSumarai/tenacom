@@ -174,7 +174,7 @@ h3 {
   position: relative;
   display: block;
   width: 56px;
-  height: 46px;  
+  height: 46px;
   overflow: hidden;
   /* background: #f4f5f5; */
   border-radius: 2px;
@@ -1291,6 +1291,13 @@ footer {
 }
 
 @media (max-width: 1100px) {
+  .manufacturing-contact {
+    grid-template-columns: 1fr;
+  }
+  .manufacturing-contact .contact-aside {
+    position: static;
+    max-width: 650px;
+  }
   .desktop-nav {
     gap: 18px;
   }
@@ -1674,6 +1681,290 @@ footer {
 
   .footer-bottom span:last-child {
     display: none;
+  }
+}
+
+.manufacturing-hero {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.manufacturing-hero h1 {
+  font-size: clamp(3rem, 5.5vw, 6rem);
+  margin-top: 24px;
+}
+.manufacturing-hero .lead {
+  margin: 28px 0 32px;
+  max-width: 620px;
+}
+.manufacturing-hero-image {
+  position: relative;
+  min-height: 540px;
+  overflow: hidden;
+}
+.manufacturing-hero-image img,
+.manufacturing-card-image img {
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+.manufacturing-hero-image figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 40px 20px 18px;
+  background: linear-gradient(transparent, #07111be6);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem;
+}
+.manufacturing-intro {
+  max-width: 350px;
+  color: var(--muted);
+}
+.manufacturing-services {
+  border-top: 1px solid var(--line);
+}
+.manufacturing-card {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(28px, 5vw, 72px);
+  padding: 48px 0;
+  border-bottom: 1px solid var(--line);
+  align-items: center;
+}
+.manufacturing-card-image {
+  position: relative;
+  min-height: 330px;
+  overflow: hidden;
+}
+.manufacturing-card:hover img {
+  transform: scale(1.025);
+}
+.manufacturing-card h3 {
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  margin: 15px 0 20px;
+}
+.manufacturing-card-copy > p:not(.eyebrow) {
+  color: var(--muted);
+  max-width: 620px;
+}
+.manufacturing-tags {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.manufacturing-tags li {
+  border: 1px solid var(--line);
+  padding: 6px 10px;
+  font-size: 0.72rem;
+}
+.manufacturing-callout,
+.manufacturing-applications {
+  padding: var(--section-space) 0;
+  background: var(--paper);
+  color: var(--dark-text);
+}
+.manufacturing-callout h2 {
+  max-width: 900px;
+  margin: 20px 0 28px;
+}
+.manufacturing-callout .eyebrow,
+.manufacturing-applications .eyebrow {
+  color: #1b5c87;
+}
+.manufacturing-callout p:not(.eyebrow) {
+  max-width: 650px;
+  margin-bottom: 32px;
+  color: var(--dark-muted);
+}
+.breadcrumbs {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+.breadcrumbs a {
+  color: var(--accent-bright);
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.service-hero h1 {
+  font-size: clamp(2.8rem, 4.7vw, 5.2rem);
+}
+.service-headline {
+  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
+  line-height: 1.4;
+  margin-top: 24px;
+}
+.manufacturing-options {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin: 48px 0 36px;
+}
+.manufacturing-options article {
+  padding: 28px 0;
+  border-top: 1px solid var(--line);
+}
+.manufacturing-options h3 {
+  margin: 22px 0 16px;
+  font-size: 1.45rem;
+}
+.manufacturing-options p,
+.manufacturing-note {
+  color: var(--muted);
+}
+.manufacturing-note {
+  border-left: 2px solid var(--accent);
+  padding-left: 22px;
+  max-width: 950px;
+}
+.manufacturing-applications h2 {
+  margin: 22px 0 40px;
+}
+.manufacturing-applications ul {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  list-style: none;
+  padding: 0;
+  gap: 0 36px;
+  margin-bottom: 30px;
+}
+.manufacturing-applications li {
+  border-top: 1px solid var(--dark-line);
+  padding: 22px 0;
+  font-size: 1.05rem;
+}
+.manufacturing-applications p:not(.eyebrow) {
+  color: var(--dark-muted);
+  max-width: 800px;
+}
+.manufacturing-workflow {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 80px;
+}
+.manufacturing-workflow .process-list {
+  grid-area: auto;
+}
+.manufacturing-workflow h2 {
+  margin: 22px 0 28px;
+}
+.manufacturing-workflow > div > p:not(.eyebrow) {
+  color: var(--muted);
+  max-width: 450px;
+}
+.manufacturing-form {
+  min-width: 0;
+}
+.manufacturing-form > .form-caption {
+  margin: 16px 0 32px;
+}
+.manufacturing-form fieldset {
+  min-width: 0;
+}
+.upload-field {
+  margin: 30px 0;
+  padding: 24px;
+  background: var(--ink);
+  border: 1px dashed var(--line);
+}
+.upload-field label {
+  flex-wrap: wrap;
+}
+.upload-field > p {
+  color: var(--muted);
+  font-size: 0.75rem;
+  margin: 8px 0 16px;
+}
+.upload-field input {
+  max-width: 100%;
+  font-size: 0.8rem;
+}
+.upload-field input::file-selector-button {
+  padding: 10px 12px;
+  background: var(--paper);
+  color: var(--dark-text);
+  border: 0;
+  margin-right: 12px;
+  cursor: pointer;
+}
+.upload-list {
+  list-style: none;
+  padding: 0;
+}
+.upload-list li {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.upload-list span {
+  overflow-wrap: anywhere;
+}
+.upload-list button {
+  background: none;
+  color: var(--accent-bright);
+  border: 0;
+  cursor: pointer;
+  min-height: 44px;
+}
+.enquiry-reference {
+  overflow-wrap: anywhere;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  margin-top: 12px;
+}
+@media (max-width: 1100px) {
+  .desktop-nav {
+    gap: 14px;
+  }
+}
+@media (max-width: 800px) {
+  .manufacturing-hero,
+  .manufacturing-card,
+  .manufacturing-workflow {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .manufacturing-hero {
+    padding-top: 50px;
+    padding-bottom: 30px;
+  }
+  .manufacturing-hero-image {
+    min-height: 360px;
+  }
+  .manufacturing-options {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .manufacturing-applications ul {
+    grid-template-columns: 1fr 1fr;
+  }
+  .manufacturing-card-image {
+    min-height: 300px;
+  }
+}
+@media (max-width: 520px) {
+  .manufacturing-options,
+  .manufacturing-applications ul {
+    grid-template-columns: 1fr;
+  }
+  .manufacturing-hero h1 {
+    font-size: 2.9rem;
+  }
+  .manufacturing-hero-image {
+    min-height: 320px;
+  }
+  .upload-field {
+    padding: 16px;
   }
 }
 

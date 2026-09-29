@@ -1,7 +1,7 @@
 export type FieldDefinition = {
   name: string;
   label: string;
-  type?: 'email' | 'tel' | 'number' | 'textarea';
+  type?: 'email' | 'tel' | 'number' | 'textarea' | 'date';
   required?: boolean;
   full?: boolean;
   options?: readonly string[];
