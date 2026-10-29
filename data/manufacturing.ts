@@ -3,6 +3,8 @@ export type ManufacturingService = {
   name: string;
   headline: string;
   description: string;
+  seoTitle: string;
+  seoDescription: string;
   image: string;
   alt: string;
   designOnly?: boolean;
@@ -16,6 +18,9 @@ export const manufacturingServices: ManufacturingService[] = [
   {
     slug: '3d-printing',
     name: '3D Printing',
+    seoTitle: '3D Printing & CAD Design in South Africa',
+    seoDescription:
+      'Custom 3D printing and CAD design in South Africa for prototypes, replacement parts, enclosures and components. Start with your model, sketch or idea.',
     headline: 'From an idea to a part you can hold.',
     description:
       'Custom 3D printing and CAD design for prototypes, replacement parts and product components. Bring a model, a sketch or simply a problem to solve.',
@@ -51,6 +56,9 @@ export const manufacturingServices: ManufacturingService[] = [
   {
     slug: 'laser-cutting',
     name: 'Laser Cutting',
+    seoTitle: 'Laser Cutting & Design in South Africa',
+    seoDescription:
+      'Laser cutting and design support in South Africa for panels, profiles and custom components. Send your files or work with Tenacom to develop your design.',
     headline: 'Your geometry. Precisely considered.',
     description:
       'Laser cutting and design support for custom profiles and components. Start with suitable manufacturing files or let us prepare the design with you.',
@@ -86,6 +94,9 @@ export const manufacturingServices: ManufacturingService[] = [
   {
     slug: 'sheet-metal-design',
     name: 'Sheet Metal & Manufacturing Design',
+    seoTitle: 'Sheet Metal & Manufacturing CAD Design',
+    seoDescription:
+      'Sheet metal and manufacturing CAD design in South Africa. Get drawings and geometry for enclosures, brackets, panels and laser-cut parts from Tenacom.',
     headline: 'Designed with the next process in mind.',
     description:
       'CAD, drawings and geometry for parts intended for sheet-metal fabrication, laser cutting and other manufacturing processes. Clear design intent, ready for discussion with your manufacturer.',

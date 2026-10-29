@@ -3,17 +3,20 @@ import Link from 'next/link';
 import { ArrowRight, ArrowUpRight } from 'lucide-react';
 import { Button, Eyebrow, FinalCTA } from '@/components/ui';
 import { capabilities, process, solutions } from '@/data/content';
-import { pageMetadata } from '@/lib/site';
+import { pageMetadata, siteDescription } from '@/lib/site';
+import StructuredData from '@/components/StructuredData';
+import { websiteStructuredData } from '@/lib/structured-data';
 
 export const metadata = pageMetadata(
-  'Intelligent systems & product engineering',
-  'Tenacom combines mechanical engineering, connected systems and software to make physical operations measurable, connected and intelligent.',
+  'Engineering & Intelligent Systems in South Africa',
+  siteDescription,
   '/',
 );
 
 export default function Home() {
   return (
     <>
+      <StructuredData data={websiteStructuredData()} />
       <section className="home-hero">
         <Image
           src="/images/engineers-pcb.jpg"
@@ -52,8 +55,9 @@ export default function Home() {
           <div>
             <h2>One engineering partner across the physical and digital system.</h2>
             <p>
-              Tenacom helps organisations see, understand and improve what is happening in the real
-              world—from a connected product to a distributed operation.
+              Tenacom is a South African engineering company helping organisations see, understand
+              and improve what is happening in the real world—from a connected product to a
+              distributed operation.
             </p>
           </div>
         </div>

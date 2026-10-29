@@ -27,7 +27,7 @@ test('every public page has metadata, working assets and no horizontal overflow'
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page).toHaveTitle(/Tenacom/);
     const canonical = await page.locator('link[rel=canonical]').getAttribute('href');
-    expect(new URL(canonical!).href).toBe(new URL(path, 'http://localhost:3000').href);
+    expect(new URL(canonical!).href).toBe(new URL(path, 'https://www.tenacom.co.za').href);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
     );

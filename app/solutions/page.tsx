@@ -2,8 +2,8 @@ import { PageIntro, FinalCTA, Eyebrow } from '@/components/ui';
 import { solutions } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
-  'What we can build',
-  'Potential systems for monitoring, connected products and practical automation.',
+  'IoT Monitoring & Automation Solutions',
+  'Explore potential applications for machine monitoring, smart pumps, connected products and custom automation. Engineering concepts shaped around your operation.',
   '/solutions',
 );
 export default function SolutionsPage() {

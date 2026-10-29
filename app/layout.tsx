@@ -3,7 +3,7 @@ import { getImageProps } from 'next/image';
 import { Manrope, IBM_Plex_Mono } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { siteUrl } from '@/lib/site';
+import { isPreviewDeployment, siteDescription, siteUrl, socialImage } from '@/lib/site';
 import './globals.css';
 const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope', display: 'swap' });
 const mono = IBM_Plex_Mono({
@@ -17,18 +17,37 @@ const favicon = getImageProps({ src: '/brand/tenacom.png', alt: 'Tenacom', width
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
-    default: 'Tenacom | Physical systems. Digital intelligence.',
+    default: 'Engineering & Intelligent Systems in South Africa | Tenacom',
     template: '%s | Tenacom',
   },
-  description:
-    'Tenacom combines mechanical engineering, connected systems and software as one working system.',
+  description: siteDescription,
+  applicationName: 'Tenacom',
+  robots: isPreviewDeployment
+    ? { index: false, follow: false }
+    : {
+        index: true,
+        follow: true,
+        googleBot: {
+          index: true,
+          follow: true,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+          'max-video-preview': -1,
+        },
+      },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION || undefined,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { 'msvalidate.01': process.env.BING_SITE_VERIFICATION }
+      : undefined,
+  },
   openGraph: {
     type: 'website',
     siteName: 'Tenacom',
     locale: 'en_ZA',
-    images: [{ url: '/opengraph-image', width: 1200, height: 630 }],
+    images: [socialImage],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [socialImage] },
   icons: { icon: favicon },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -41,21 +60,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main">{children}</main>
         <Footer />
-        {process.env.SITE_URL && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                '@context': 'https://schema.org',
-                '@type': 'Organization',
-                name: 'Tenacom',
-                url: siteUrl.href,
-                description: 'A South African intelligent systems and product engineering company.',
-                logo: new URL('/brand/tenacom.png', siteUrl).href,
-              }).replace(/</g, '\\u003c'),
-            }}
-          />
-        )}
       </body>
     </html>
   );

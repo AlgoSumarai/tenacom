@@ -2,12 +2,13 @@ import { createHash } from 'node:crypto';
 import { validateEnquiry } from '@/lib/enquiry';
 import { deliverEnquiry, deliveryConfigured } from '@/lib/mail';
 import { allowEnquiry } from '@/lib/rate-limit';
+import { resolveSiteUrl } from '@/lib/site';
 export const runtime = 'nodejs';
 const MAX_BODY_BYTES = 24000;
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
   const allowedOrigin = process.env.SITE_URL
-    ? new URL(process.env.SITE_URL).origin
+    ? resolveSiteUrl(process.env.SITE_URL).origin
     : new URL(request.url).origin;
   if (origin && origin !== allowedOrigin)
     return Response.json({ message: 'Please submit from the Tenacom website.' }, { status: 403 });

@@ -2,10 +2,13 @@ import { createHash } from 'node:crypto';
 import { validateManufacturing, validateFiles, MAX_TOTAL_BYTES } from '@/lib/manufacturing-enquiry';
 import { enquiryDirectory, recordManufacturingEnquiry } from '@/lib/manufacturing-storage';
 import { allowEnquiry } from '@/lib/rate-limit';
+import { resolveSiteUrl } from '@/lib/site';
 export const runtime = 'nodejs';
 export async function POST(request: Request) {
   const origin = request.headers.get('origin');
-  const allowed = new URL(process.env.SITE_URL || request.url).origin;
+  const allowed = process.env.SITE_URL
+    ? resolveSiteUrl(process.env.SITE_URL).origin
+    : new URL(request.url).origin;
   if (origin && origin !== allowed)
     return Response.json({ message: 'Please submit from the Tenacom website.' }, { status: 403 });
   const contentType = request.headers.get('content-type') || '';

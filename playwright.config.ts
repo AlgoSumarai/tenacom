@@ -15,6 +15,7 @@ export default defineConfig({
   reporter: 'list',
   webServer: {
     command: 'npm run dev',
+    env: { SITE_URL: 'https://www.tenacom.co.za', VERCEL_ENV: 'production' },
     url: 'http://localhost:3000',
     reuseExistingServer: !process.env.CI,
     timeout: 120000,

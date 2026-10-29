@@ -42,16 +42,34 @@ If your network uses a system-trusted TLS proxy and Node cannot verify the npm c
 
 ## Environment and email delivery
 
-| Variable               | Purpose                                                                                                                                                                    |
-| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `SITE_URL`             | Verified canonical origin, including `https://` in production. Used in canonical links, sitemap, social metadata and origin checks. Defaults to localhost for development. |
-| `RESEND_API_KEY`       | Server-only Resend sending credential.                                                                                                                                     |
-| `CONTACT_FROM_EMAIL`   | Sender on a domain verified with the email provider.                                                                                                                       |
-| `CONTACT_TO_EMAIL`     | Tenacom’s real project enquiry inbox.                                                                                                                                      |
-| `CONTACT_PUBLIC_EMAIL` | Optional public address displayed on the contact page.                                                                                                                     |
-| `TRUST_PROXY`          | Set to `true` only if your hosting proxy overwrites `x-forwarded-for`.                                                                                                     |
+| Variable                   | Purpose                                                                                                                                                                                                                                |
+| -------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `SITE_URL`                 | Canonical origin. Defaults to `https://www.tenacom.co.za`; the bare Tenacom domain normalises to `www` to match hosting. Production builds reject localhost and non-HTTPS origins. Use `http://localhost:3000` for local form testing. |
+| `GOOGLE_SITE_VERIFICATION` | Optional Google Search Console HTML verification token (the `content` value only). Rebuild after setting.                                                                                                                              |
+| `BING_SITE_VERIFICATION`   | Optional Bing Webmaster Tools HTML verification token (the `msvalidate.01` content value only). Rebuild after setting.                                                                                                                 |
+| `RESEND_API_KEY`           | Server-only Resend sending credential.                                                                                                                                                                                                 |
+| `CONTACT_FROM_EMAIL`       | Sender on a domain verified with the email provider.                                                                                                                                                                                   |
+| `CONTACT_TO_EMAIL`         | Tenacom’s real project enquiry inbox.                                                                                                                                                                                                  |
+| `CONTACT_PUBLIC_EMAIL`     | Optional public address displayed on the contact page.                                                                                                                                                                                 |
+| `TRUST_PROXY`              | Set to `true` only if your hosting proxy overwrites `x-forwarded-for`.                                                                                                                                                                 |
 
 Configure the three delivery variables together. Without them, valid submissions return HTTP 503 and clearly say that the message was **not sent**. No fake success is shown and entered data is retained. Contact and metadata values are included during static generation, so rebuild after changing public-facing environment values.
+
+## Search engine optimisation
+
+The public canonical origin is **https://www.tenacom.co.za**, matching the live permanent redirect from `tenacom.co.za`. Page canonical links, the XML sitemap, robots discovery, Open Graph/Twitter URLs and JSON-LD all share this origin. It is the default even without environment configuration, so a missing `SITE_URL` cannot publish localhost links. Keep the existing hosting redirect from the bare domain to `www` and HTTPS enabled.
+
+Each page has a distinct search title and description. Manufacturing services have dedicated `seoTitle` and `seoDescription` fields in `data/manufacturing.ts`. The homepage includes `Organization` and `WebSite` JSON-LD, and each manufacturing service includes `Service` and `BreadcrumbList` JSON-LD consistent with its visible content. No reviews, prices, street addresses or credentials are invented. Vercel preview builds (`VERCEL_ENV=preview`) emit `noindex, nofollow` and disallow crawling; production remains indexable.
+
+After deploying these changes:
+
+1. Set production `SITE_URL=https://www.tenacom.co.za` or leave it unset to use the same default. Remove any old localhost value before rebuilding.
+2. Add `tenacom.co.za` in [Google Search Console](https://search.google.com/search-console). A Domain property covers both domain variants and protocols and requires the DNS TXT record Google supplies at your DNS provider. Alternatively, add the `https://www.tenacom.co.za/` URL-prefix property and set its HTML verification content value as `GOOGLE_SITE_VERIFICATION`, rebuild and then verify. These tokens and DNS records must come from the account that owns the property.
+3. Add the site in [Bing Webmaster Tools](https://www.bing.com/webmasters/). Import a verified Search Console property or set the supplied HTML token as `BING_SITE_VERIFICATION`, rebuild and verify.
+4. Submit `https://www.tenacom.co.za/sitemap.xml` in both tools. In Search Console, inspect the homepage and the three manufacturing service URLs, test their live versions and request indexing. Check that Google sees the public `www` canonical and can fetch the pages.
+5. Validate the deployed homepage and service pages using [Google’s Rich Results Test](https://search.google.com/test/rich-results) and the [Schema Markup Validator](https://validator.schema.org/). Monitor indexing, search queries and Core Web Vitals in Search Console after deployment.
+
+Verification and sitemap submission require access to the relevant webmaster account or DNS provider; adding metadata does not verify ownership or submit anything automatically. Google controls crawling, indexing and search appearance. See the [Google SEO starter guide](https://developers.google.com/search/docs/fundamentals/seo-starter-guide) and [canonical URL guidance](https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls).
 
 `lib/mail.ts` is the email-provider boundary. It sends a plain-text message to the configured inbox, uses the visitor’s validated email only for `reply_to`, checks the provider receipt, and applies a timeout. Replace this module if another provider is preferred. See the [Resend send-email API](https://resend.com/docs/api-reference/emails/send-email).
 
@@ -95,6 +113,7 @@ lib/
   manufacturing-enquiry.ts  Shared field definitions and file/input validation
   manufacturing-storage.ts Private atomic enquiry and file persistence adapter
   site.ts                   Canonical origin and page metadata helper
+  structured-data.ts        Company, website, service and breadcrumb JSON-LD
 public/brand/               Original user-supplied logo
 tests/                      Validation, API and browser regression coverage
 ```
@@ -135,10 +154,12 @@ Change shared capability, solution, industry and process copy in `data/content.t
 
 To add a page, create `app/<route>/page.tsx`, export `pageMetadata(...)`, add navigation only where useful and include the route in `app/sitemap.ts`. Keep the page a server component and isolate interactive state in a focused child component.
 
-No real contact address, domain or delivery credentials were supplied. Before public launch, set the verified production origin and inbox, verify the sending domain, run a real delivery test, and confirm the published enquiry handling notice matches the chosen hosting/mail arrangements. The site can be deployed to a Next.js-compatible host or run with `npm run build` followed by `npm start`; it is not a static export because enquiry delivery needs a server.
+The production domain is configured as `https://www.tenacom.co.za`. Before accepting enquiries, set the real inbox and delivery credentials, verify the sending domain, run a real delivery test, and confirm the published enquiry handling notice matches the chosen hosting/mail arrangements. The site can be deployed to a Next.js-compatible host or run with `npm run build` followed by `npm start`; it is not a static export because enquiry delivery needs a server.
 
 ## Verification
 
 The unit/API suite covers required fields, input types, enum tampering, length bounds, consent, rate expiry, origin/content-type rejection, malformed and oversized payloads, honeypot rejection, unconfigured delivery, provider success and provider/network failure.
 
 The browser suite covers all public routes, metadata, assets, horizontal overflow, homepage section structure, photography loading, copy and page-height limits, responsive screenshots, navigation, mobile menu escape/focus, form errors, retained data on failure, success/loading feedback, reduced motion and the 404/discovery endpoints. Review the actual rendering after changing layouts; passing a build alone is not a visual quality check.
+
+SEO regression coverage verifies the production default, rejects unsafe canonical configuration, checks canonical/sitemap/social URL agreement across all eleven public pages, parses company and service JSON-LD, and confirms missing services return 404 with `noindex`. Run `npx playwright test tests/seo.spec.ts --project=desktop` for the focused browser checks.

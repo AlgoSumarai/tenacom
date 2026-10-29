@@ -3,8 +3,8 @@ import { Button, Eyebrow } from '@/components/ui';
 import ManufacturingServices from '@/components/ManufacturingServices';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
-  'Manufacturing',
-  '3D printing, laser cutting and manufacturing design. Bring Tenacom your idea, drawing or model and start a project enquiry.',
+  '3D Printing, Laser Cutting & CAD Design',
+  '3D printing, laser cutting and manufacturing CAD design in South Africa. Bring Tenacom your idea, drawing or model to discuss your next custom part or prototype.',
   '/manufacturing',
 );
 export default function ManufacturingPage() {

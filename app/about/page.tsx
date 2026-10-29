@@ -3,7 +3,7 @@ import { PageIntro, FinalCTA, Eyebrow } from '@/components/ui';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
   'About Tenacom',
-  'A South African engineering company bringing physical systems and software together.',
+  'Meet Tenacom, a South African product engineering company bringing mechanical design, embedded systems and software together from concept to working system.',
   '/about',
 );
 export default function AboutPage() {

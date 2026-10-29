@@ -6,6 +6,8 @@ import ManufacturingServices from '@/components/ManufacturingServices';
 import ManufacturingEnquiryForm from '@/components/ManufacturingEnquiryForm';
 import { Button, Eyebrow } from '@/components/ui';
 import { pageMetadata } from '@/lib/site';
+import StructuredData from '@/components/StructuredData';
+import { serviceStructuredData } from '@/lib/structured-data';
 type Props = { params: Promise<{ slug: string }> };
 export function generateStaticParams() {
   return manufacturingServices.map(({ slug }) => ({ slug }));
@@ -13,7 +15,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const service = findManufacturingService((await params).slug);
   if (!service) notFound();
-  return pageMetadata(service.name, service.description, `/manufacturing/${service.slug}`);
+  return pageMetadata(service.seoTitle, service.seoDescription, `/manufacturing/${service.slug}`);
 }
 export default async function ServicePage({ params }: Props) {
   const service = findManufacturingService((await params).slug);
@@ -46,9 +48,12 @@ export default async function ServicePage({ params }: Props) {
   ];
   return (
     <>
+      <StructuredData data={serviceStructuredData(service)} />
       <section className="manufacturing-hero service-hero container">
         <div>
           <nav className="breadcrumbs" aria-label="Breadcrumb">
+            <Link href="/">Home</Link>
+            <span aria-hidden="true"> / </span>
             <Link href="/manufacturing">Manufacturing</Link>
             <span aria-hidden="true"> / </span>
             <span>{service.name}</span>

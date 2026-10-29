@@ -2,8 +2,8 @@ import { PageIntro, FinalCTA } from '@/components/ui';
 import { capabilities } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
-  'Our capabilities',
-  'Mechanical engineering, connected systems, software and automation, engineered together.',
+  'Mechanical, Embedded & Software Engineering',
+  'Explore Tenacom’s mechanical design, embedded systems, software platforms and automation capabilities. Integrated product engineering from South Africa.',
   '/capabilities',
 );
 export default function CapabilitiesPage() {

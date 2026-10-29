@@ -2,8 +2,8 @@ import ContactForm from '@/components/ContactForm';
 import { PageIntro } from '@/components/ui';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
-  'Discuss your project',
-  'Start a practical engineering conversation with Tenacom.',
+  'Contact Our Engineering Team',
+  'Discuss your product engineering, connected systems or manufacturing project with Tenacom in South Africa. Share your idea, requirements or operational challenge.',
   '/contact',
 );
 export default function ContactPage() {

@@ -2,8 +2,8 @@ import { PageIntro, FinalCTA } from '@/components/ui';
 import { industries } from '@/data/content';
 import { pageMetadata } from '@/lib/site';
 export const metadata = pageMetadata(
-  'Where we can create value',
-  'Connected engineering for physical assets, infrastructure and product development.',
+  'Industries for Connected Engineering',
+  'Explore connected engineering applications for manufacturing, mining, agriculture, energy, logistics and water infrastructure with South African company Tenacom.',
   '/industries',
 );
 export default function IndustriesPage() {

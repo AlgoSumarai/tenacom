@@ -38,7 +38,7 @@ test('manufacturing pages are discoverable, responsive and service-specific', as
     await expect(page.locator('h1')).toHaveCount(1);
     await expect(page).toHaveTitle(/Tenacom/);
     expect(await page.locator('link[rel=canonical]').getAttribute('href')).toBe(
-      `http://localhost:3000/manufacturing${slug}`,
+      `https://www.tenacom.co.za/manufacturing${slug}`,
     );
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(
       true,
