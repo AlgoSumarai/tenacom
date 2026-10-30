@@ -560,20 +560,6 @@ h3 {
   object-position: 52% 42%;
 }
 
-.editorial-image figcaption {
-  position: absolute;
-  right: 14px;
-  bottom: 12px;
-  z-index: 1;
-  padding: 6px 8px;
-  background: rgba(5, 13, 21, 0.76);
-  color: #c9d4da;
-  font-family: var(--font-mono), monospace;
-  font-size: 0.56rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-
 .people-copy h2 {
   margin-top: 24px;
   font-size: clamp(2.45rem, 4vw, 4.5rem);
@@ -758,19 +744,6 @@ h3 {
 .cta-inner h2 {
   margin-top: 20px;
   color: var(--white);
-}
-
-.photo-credit {
-  position: absolute;
-  right: 0;
-  bottom: 18px;
-  left: 0;
-  color: rgba(220, 231, 236, 0.66);
-  font-family: var(--font-mono), monospace;
-  font-size: 0.55rem;
-  letter-spacing: 0.05em;
-  text-align: right;
-  text-transform: uppercase;
 }
 
 .page-intro {
@@ -1540,11 +1513,6 @@ footer {
     padding-bottom: 72px;
   }
 
-  .photo-credit {
-    bottom: 13px;
-    text-align: left;
-  }
-
   .page-intro {
     padding-top: 85px;
   }
@@ -1626,12 +1594,6 @@ footer {
 
   .capability-list h3 {
     font-size: 1.13rem;
-  }
-
-  .editorial-image figcaption {
-    right: 8px;
-    bottom: 8px;
-    font-size: 0.5rem;
   }
 
   .process-list li {

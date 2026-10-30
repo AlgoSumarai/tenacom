@@ -96,7 +96,6 @@ export default function Home() {
               fill
               sizes="(max-width: 800px) 100vw, 52vw"
             />
-            <figcaption>Illustrative engineering photography</figcaption>
           </figure>
           <div className="people-copy">
             <Eyebrow>How we think</Eyebrow>
@@ -148,7 +147,6 @@ export default function Home() {
               fill
               sizes="(max-width: 800px) 100vw, 46vw"
             />
-            <figcaption>Illustrative engineering photography</figcaption>
           </figure>
           <ol className="process-list">
             {process.map(([title, body], index) => (

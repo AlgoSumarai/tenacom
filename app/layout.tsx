@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { getImageProps } from 'next/image';
 import { Manrope, IBM_Plex_Mono } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
@@ -12,8 +11,6 @@ const mono = IBM_Plex_Mono({
   variable: '--font-mono',
   display: 'swap',
 });
-const favicon = getImageProps({ src: '/brand/tenacom.png', alt: 'Tenacom', width: 32, height: 32 })
-  .props.src;
 export const metadata: Metadata = {
   metadataBase: siteUrl,
   title: {
@@ -48,7 +45,6 @@ export const metadata: Metadata = {
     images: [socialImage],
   },
   twitter: { card: 'summary_large_image', images: [socialImage] },
-  icons: { icon: favicon },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (

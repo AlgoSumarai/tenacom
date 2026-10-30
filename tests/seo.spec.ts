@@ -19,6 +19,31 @@ test.beforeEach(({}, testInfo) => {
   test.skip(testInfo.project.name !== 'desktop', 'SEO output is independent of viewport.');
 });
 
+test('brand favicons are directly crawlable image files', async ({ page, request }) => {
+  await page.goto('/');
+  const png = page.locator('head link[rel="icon"][type="image/png"]');
+  await expect(png).toHaveAttribute('sizes', '96x96');
+  const pngUrl = new URL((await png.getAttribute('href'))!, page.url());
+  expect(pngUrl.pathname).toBe('/icon.png');
+  const response = await request.get(`${pngUrl.pathname}${pngUrl.search}`);
+  expect(response.status()).toBe(200);
+  expect(response.headers()['content-type']).toContain('image/png');
+  const bytes = await response.body();
+  expect(bytes.readUInt32BE(16)).toBe(96);
+  expect(bytes.readUInt32BE(20)).toBe(96);
+
+  const ico = await request.get('/favicon.ico');
+  expect(ico.status()).toBe(200);
+  const icoBytes = await ico.body();
+  expect(icoBytes.readUInt16LE(2)).toBe(1);
+  expect(icoBytes.readUInt16LE(4)).toBeGreaterThan(1);
+  const apple = page.locator('head link[rel="apple-touch-icon"]');
+  await expect(apple).toHaveAttribute('sizes', '180x180');
+  const appleUrl = new URL((await apple.getAttribute('href'))!, page.url());
+  expect(appleUrl.pathname).toBe('/apple-icon.png');
+  expect((await request.get(`${appleUrl.pathname}${appleUrl.search}`)).status()).toBe(200);
+});
+
 test('crawlable pages, sitemap and social metadata use the same public canonical URLs', async ({
   page,
   request,

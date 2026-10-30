@@ -10,6 +10,7 @@ The site includes a homepage, manufacturing hub and service enquiries, capabilit
 - Plain CSS with central brand tokens and responsive editorial layouts. The interface uses restrained state transitions without an animation library.
 - Manrope and IBM Plex Mono via `next/font`; font files are served locally after the build.
 - Licensed, documentary-style engineering photography and Lucide interface icons. Image sources and representation notes are documented in `public/images/README.md`. The supplied logo is preserved in `public/brand/tenacom.png` and delivered through `next/image`.
+- Dedicated browser/search icons use the existing Tenacom mark: `app/favicon.ico` (16–256 px), `app/icon.png` (96 px) and `app/apple-icon.png` (180 px). Next.js links these files directly without the image optimiser. The mark is cropped from `public/brand/tenacomtrans.png` at `(272, 241, 1038, 860)`, centred with proportional padding; the original logo assets are preserved.
 - A server-only Resend HTTP adapter for enquiry delivery. No database or public credentials are needed.
 - ESLint, Prettier, Node tests through tsx, and Playwright browser regression tests.
 
@@ -60,6 +61,8 @@ Configure the three delivery variables together. Without them, valid submissions
 The public canonical origin is **https://www.tenacom.co.za**, matching the live permanent redirect from `tenacom.co.za`. Page canonical links, the XML sitemap, robots discovery, Open Graph/Twitter URLs and JSON-LD all share this origin. It is the default even without environment configuration, so a missing `SITE_URL` cannot publish localhost links. Keep the existing hosting redirect from the bare domain to `www` and HTTPS enabled.
 
 Each page has a distinct search title and description. Manufacturing services have dedicated `seoTitle` and `seoDescription` fields in `data/manufacturing.ts`. The homepage includes `Organization` and `WebSite` JSON-LD, and each manufacturing service includes `Service` and `BreadcrumbList` JSON-LD consistent with its visible content. No reviews, prices, street addresses or credentials are invented. Vercel preview builds (`VERCEL_ENV=preview`) emit `noindex, nofollow` and disallow crawling; production remains indexable.
+
+The favicon is a crawlable, square brand mark at `/favicon.ico` with a dedicated 96 px PNG alternative at `/icon.png`. After deploying an icon change, request a homepage recrawl in Search Console. Google must recrawl and process the icon before it can update Search results; appearance is not immediate or guaranteed. See [Google’s favicon guidance](https://developers.google.com/search/docs/appearance/favicon-in-search).
 
 After deploying these changes:
 

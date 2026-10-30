@@ -61,7 +61,6 @@ export function FinalCTA() {
         </div>
         <Button>Discuss your project</Button>
       </div>
-      <p className="container photo-credit">Illustrative engineering photography</p>
     </section>
   );
 }

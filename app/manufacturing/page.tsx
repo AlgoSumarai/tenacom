@@ -48,8 +48,7 @@ export default function ManufacturingPage() {
         </div>
         <ManufacturingServices />
         <p className="form-caption">
-          Illustrative engineering photography; application examples are not a portfolio of
-          completed Tenacom work.
+          Application examples are not a portfolio of completed Tenacom work.
         </p>
       </section>
       <section className="manufacturing-callout">

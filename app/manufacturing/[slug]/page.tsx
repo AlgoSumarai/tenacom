@@ -71,7 +71,6 @@ export default async function ServicePage({ params }: Props) {
             loading="eager"
             sizes="(max-width: 800px) 100vw, 45vw"
           />
-          <figcaption>Illustrative engineering photography</figcaption>
         </figure>
       </section>
       <section className="section container">

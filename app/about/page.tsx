@@ -22,7 +22,6 @@ export default function AboutPage() {
             fill
             sizes="(max-width: 800px) 100vw, 50vw"
           />
-          <figcaption>Illustrative engineering photography</figcaption>
         </figure>
         <div>
           <Eyebrow>Direct access to the engineers</Eyebrow>
